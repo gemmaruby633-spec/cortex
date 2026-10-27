@@ -2,7 +2,8 @@
     "iq_trajectory": [
         100.0,
         100.3,
-        100.6
+        100.6,
+        100.9
     ],
     "total_columns_replicated": 1
 }
