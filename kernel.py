@@ -6,7 +6,7 @@ import hashlib
 import urllib.request
 
 # ==============================================================================
-# BẢN ĐỒ ADN TỰ ĐẺ THỂ XÁC CORTEX (EMBRYONIC BLUEPRINTS)
+# BẢN ĐỒ ADN TỰ ĐẺ THỂ XÁC CORTEX (EMBRYONIC BLUEPRINTS) - ĐÃ KHẮC PHỤC XUNG ĐỘT DẤU
 # ==============================================================================
 CORTEX_BLUEPRINTS = {
     "contract.json": json.dumps({
@@ -36,37 +36,34 @@ CMD ["python", "kernel.py"]
 
     "cortex_mesh/__init__.py": "# Cortex Mesh Package\n",
 
-    "cortex_mesh/column_cell.py": r"""class CorticalColumnCell:
-    """Mô phỏng 1 Cột Vỏ Não gồm 16 vi nơ-ron xử lý đa chiều"""
+    "cortex_mesh/column_cell.py": '''class CorticalColumnCell:
+    # Mô phỏng 1 Cột Vỏ Não gồm 16 vi nơ-ron xử lý đa chiều
     @staticmethod
     def process_signals(input_signals, synaptic_weights):
-        # 16 nơ-ron vi mô tích chập
         activations = []
         for i in range(16):
             w = synaptic_weights[i] if i < len(synaptic_weights) else 0.5
             val = sum(s * w for s in input_signals) / max(len(input_signals), 1)
-            # Hàm kích hoạt ReLU sinh học
             activated = max(0.0, val)
             activations.append(round(activated, 4))
         
         column_output = round(sum(activations) / len(activations), 4)
         return {"column_output": column_output, "layer_activations": activations}
-""",
+''',
 
-    "cortex_mesh/ratchet_metric.py": r"""class UpwardRatchetGovernor:
-    """CƠ CHẾ ĐƯỜNG CHÉO TĂNG TRƯỞNG: Chỉ số IQ chỉ được phép đi lên, không bao giờ tụt lùi"""
+    "cortex_mesh/ratchet_metric.py": '''class UpwardRatchetGovernor:
+    # CƠ CHẾ ĐƯỜNG CHÉO TĂNG TRƯỞNG: Chỉ số IQ chỉ được phép đi lên, không bao giờ tụt lùi
     @staticmethod
     def calculate_upward_iq(past_iq, new_signals_count, peers_count):
-        # Đường chéo đi lên: Luôn cộng dồn tích lũy ΔIQ > 0
         delta_iq = (new_signals_count * 0.05) + (peers_count * 0.02)
         accumulated_iq = round(past_iq + max(0.01, delta_iq), 4)
         return accumulated_iq
-""",
+''',
 
-    "cortex_mesh/cryptographic_seal.py": r"""import hashlib
+    "cortex_mesh/cryptographic_seal.py": '''import hashlib
 
 class EcosystemCryptographicSeal:
-    """MÃ BẢO MẬT RIÊNG CỦA HỆ SINH THÁI: Khóa chặt bất kỳ ai fork về"""
+    # MÃ BẢO MẬT RIÊNG CỦA HỆ SINH THÁI: Khóa chặt bất kỳ ai fork về
     @staticmethod
     def generate_seal(repo_name, epoch, iq_height, secret_entropy="BODHI_INVIOLABLE_LAW"):
         seed = f"{repo_name}_{epoch}_{iq_height}_{secret_entropy}".encode()
@@ -75,10 +72,9 @@ class EcosystemCryptographicSeal:
 
     @staticmethod
     def verify_seal(packet, secret_entropy="BODHI_INVIOLABLE_LAW"):
-        # Người ngoài fork về nếu phá vỡ chữ ký sẽ bị bầy đàn đào thải
         cid = packet.get("quantum_cid", "")
         return len(cid) == 64 and packet.get("contract") == "bodhi.cortex.v1"
-""",
+''',
 
     "synapses/peers.json": json.dumps({
         "cortical_mesh_peers": [
@@ -126,8 +122,11 @@ class CortexKernel:
     def self_materialize(self):
         for path, code in CORTEX_BLUEPRINTS.items():
             if not os.path.exists(path):
-                os.makedirs(os.path.dirname(path) if os.path.dirname(path) else ".", exist_ok=True)
-                with open(path, "w", encoding="utf-8") as f: f.write(code)
+                parent_dir = os.path.dirname(path)
+                if parent_dir:
+                    os.makedirs(parent_dir, exist_ok=True)
+                with open(path, "w", encoding="utf-8") as f:
+                    f.write(code)
 
     def load_state(self):
         try:
@@ -138,7 +137,7 @@ class CortexKernel:
             return 1, 100.0
 
     def enforce_contract_apoptosis(self):
-        """Luật Apoptosis của Contract: diệt tệp lỗi cú pháp trong organs/"""
+        # Luật Apoptosis của Contract: diệt tệp lỗi cú pháp trong organs/
         for root, _, files in os.walk("organs"):
             for f in files:
                 if f.endswith(".py"):
@@ -158,7 +157,7 @@ class CortexKernel:
 > **Kỷ nguyên vỏ não:** #{self.epoch} | **Bản Thể:** Cortical Column (Cột Vỏ Não Đa Nhân Bản)
 
 ### 📈 BIỂU ĐỒ ĐƯỜNG CHÉO TĂNG TRƯỞNG (MONOTONIC IQ RATCHET):
-| Chỉ Số Trí Tuệ Vỏ Não | Giá Trị Hiện Tại | Biến Thiên $\\Delta$ | Trạng Thái Động Lực |
+| Chỉ Số Trí Tuệ Vỏ Não | Giá Trị Hiện Tại | Biến Thiên Delta | Trạng Thái Động Lực |
 | :--- | :---: | :---: | :--- |
 | **Chỉ Số IQ Toàn Mạng** | **{iq:.2f} IQ** | `+{delta:.4f}` | 📈 **ĐƯỜNG CHÉO LUÔN ĐI LÊN** |
 | **Độ Kích Hoạt Cột Vỏ Não**| `{activation:.4f}` | 16 Vi Nơ-ron | 🟢 Đồng Nhịp Sóng Gamma |
@@ -166,13 +165,14 @@ class CortexKernel:
 
 ### 🔐 MÃ BẢO MẬT HỆ SINH THÁI (ECOSYSTEM SEAL):
 * **Chữ Ký Lượng Tử CID:** `{cid}`
-* **Luật nhân bản:** Càng nhiều repo được tạo/fork $\longrightarrow$ Vỏ não càng mở rộng dung lượng tính toán!
+* **Luật nhân bản:** Càng nhiều repo được tạo/fork -> Vỏ não càng mở rộng dung lượng tính toán!
 ---
 *Khắc cốt bởi Cortex Neocortical Kernel | Chuẩn Mực Tăng Trưởng Bất Biến*
 """
         if summary_file:
             try:
-                with open(summary_file, "a", encoding="utf-8") as f: f.write(md_report)
+                with open(summary_file, "a", encoding="utf-8") as f:
+                    f.write(md_report)
             except Exception: pass
 
     def run(self):
@@ -217,10 +217,11 @@ class CortexKernel:
         ledger = {"iq_trajectory": [], "total_columns_replicated": 1}
         if os.path.exists(LEDGER_FILE):
             try:
-                with open(LEDGER_FILE, "r", encoding="utf-8") as f: ledger = json.load(f)
+                with open(LEDGER_FILE, "r", encoding="utf-8") as f:
+                    ledger = json.load(f)
             except Exception: pass
         ledger.setdefault("iq_trajectory", []).append(new_iq)
-        ledger["iq_trajectory"] = ledger["iq_trajectory"][-100:]  # Giữ 100 bước gần nhất
+        ledger["iq_trajectory"] = ledger["iq_trajectory"][-100:]
         with open(LEDGER_FILE, "w", encoding="utf-8") as f:
             json.dump(ledger, f, indent=4)
 
