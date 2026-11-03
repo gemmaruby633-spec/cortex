@@ -1,7 +1,7 @@
 {
-    "generation_epoch": 27,
-    "cortex_iq": 107.8,
-    "last_t": 1793645374,
-    "quantum_cid": "393574b63ccef8b257fa70b75b212aa2307ef12d9817307ed78ffe63e3e452daa5d6c9ae0a9d3733971a3daf60f37c14ba60fa764c799ca0d7281bb351f0a291",
+    "generation_epoch": 28,
+    "cortex_iq": 108.1,
+    "last_t": 1793673508,
+    "quantum_cid": "200bf6cfe42a34adbabdcb6cb0560ebc9173c645a661b9fc1b711f81a589ffa1a74ef975e337a7ddb5d9c739a0f8af1f18ebb3afe74d374d73f43ac205f8c575",
     "status": "iq_ratchet_ascending"
 }
