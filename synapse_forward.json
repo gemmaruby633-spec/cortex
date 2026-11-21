@@ -2,8 +2,8 @@
     "contract": "bodhi.cortex.v1",
     "identity": "gemmaruby633-spec/cortex",
     "role": "CORTICAL_COLUMN_NEURON",
-    "epoch": 80,
-    "cortex_iq": 123.7,
-    "quantum_cid": "21156001ddfd88a191836ebb2a77dbb9ddc99596a016a7f719d993166edba77f6b3e9d4dec195501818ef33f30c2aef3014f225f4f69947bb851b122cb29aed9",
+    "epoch": 81,
+    "cortex_iq": 124.0,
+    "quantum_cid": "b4b93b6f07aa3c57a88ef35ff40849373b5c2a2009a14044588ede614d33b5a0fd9dc6372f780997271efeaf67b6aae465388775eda8c37c6a8194a17ec1e9c3",
     "status": "monotonically_expanding_brain"
 }
